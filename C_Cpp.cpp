@@ -35,20 +35,9 @@ void overheatInfo(volatile Radar* p) {
 	}
 }
 
-volatile uint8_t status_radaru = 0; // 0 = szukam, 1 = znalazlem
-
-void czekajNaCel() {
-	while (status_radaru == 0) {
-	}
-
-	cout << "Cel namierzony!" << endl;
-}
-
 int main()
 {
 	Radar radar;
-
-	czekajNaCel();
 
 	turnOnPower(&radar);
 	powerStatus(&radar);

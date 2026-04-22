@@ -23,21 +23,30 @@ void checkStrength (Radar* p) {
 	cout << "signal strength: " << (int)strength << endl;
 }
 
+void powerStatus(Radar* p) {
+	if (p->status & (1 << 0)) {
+		cout<<"Power in ON" << endl;
+	}
+}
+
+void overheatInfo(Radar* p) {
+	if (p->status & (1 << 2)) {
+		cout << "Overheat detected." << endl;
+	}
+}
+
 int main()
 {
 	Radar radar;
-	cout << "radar status: " << bitset<8>(radar.status) << endl;
 
-	if (radar.status & (1 << 0)) {
-		cout << "Power is ON." << endl;
-	}
-
-	if (radar.status & ( 1 << 2)) {
-		cout << "Overheat detected." << endl;
-	}
 	turnOnPower(&radar);
+	powerStatus(&radar);
+	overheatInfo(&radar);
 	turnOffAntenna(&radar);
 	checkStrength(&radar);
+
+
+
 	return 0;
 
 }

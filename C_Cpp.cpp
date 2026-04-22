@@ -5,39 +5,50 @@
 using namespace std;
 
 struct Radar {
-	uint8_t status = 0b10110110;
+	volatile uint8_t status = 0b10110110;
 };
 
-void turnOnPower(Radar *p) {
+void turnOnPower(volatile Radar *p) {
 	p->status |= (1 << 0);
 	cout << bitset<8>(p->status) << " turn on power" << endl;
 }
 
-void turnOffAntenna(Radar* p) {
+void turnOffAntenna(volatile Radar* p) {
 	p->status &= ~(1 << 1);
 	cout << bitset<8>(p->status) << " turn off antenna" << endl;
 }
 
-void checkStrength (Radar* p) {
+void checkStrength (volatile Radar* p) {
 	uint8_t strength = (p->status >> 4);
 	cout << "signal strength: " << (int)strength << endl;
 }
 
-void powerStatus(Radar* p) {
+void powerStatus(volatile Radar* p) {
 	if (p->status & (1 << 0)) {
 		cout<<"Power in ON" << endl;
 	}
 }
 
-void overheatInfo(Radar* p) {
+void overheatInfo(volatile Radar* p) {
 	if (p->status & (1 << 2)) {
 		cout << "Overheat detected." << endl;
 	}
 }
 
+volatile uint8_t status_radaru = 0; // 0 = szukam, 1 = znalazlem
+
+void czekajNaCel() {
+	while (status_radaru == 0) {
+	}
+
+	cout << "Cel namierzony!" << endl;
+}
+
 int main()
 {
 	Radar radar;
+
+	czekajNaCel();
 
 	turnOnPower(&radar);
 	powerStatus(&radar);
@@ -48,5 +59,4 @@ int main()
 
 
 	return 0;
-
 }

@@ -1,0 +1,8 @@
+﻿################################################################################
+# Ten plik .gitignore został utworzony automatycznie przez Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/C_Cpp
+/x64/Debug
+/C_Cpp/x64/Debug
+/C_Cpp.vcxproj.user
